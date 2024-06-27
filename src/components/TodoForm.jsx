@@ -7,12 +7,20 @@ function TodoCard({ addTodo, todos, handleRemove }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+
     if (todo.trim() === '') {
       return;
     }
     addTodo(todo);
     setTodo('');
   };
+
+
+  const handleEnter = (event) =>{
+    if(event.key === 'Enter'){
+      handleSubmit(event);
+    }
+  }
 
   useEffect(() => {
     inputRef.current.focus();
@@ -31,9 +39,10 @@ function TodoCard({ addTodo, todos, handleRemove }) {
           id='addTodo'
           placeholder='Type to add todo'
           onChange={(event) => setTodo(event.target.value)}
+          onKeyDown={handleEnter}
         />
         <TodoList list={todos} handleRemove={handleRemove} />
-        <button className='bg-blue-600 rounded p-3 w-full text-white font-semibold'>
+        <button type='submit' className='bg-blue-600 rounded p-3 w-full text-white font-semibold'>
           Add
         </button>
       </form>
